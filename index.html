@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spiralgraph</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <aside id="panel">
+      <h1>Spiralgraph</h1>
+
+      <section>
+        <h2>Gear teeth (shared)</h2>
+        <div class="sliders">
+          <label class="slider"><span>Tooth size <output></output></span><input type="range" data-setting="pitch" /></label>
+        </div>
+        <p class="hint">Bigger teeth means fewer of them on the same pieces, which changes the pattern.</p>
+      </section>
+
+      <section>
+        <h2>Frame <span class="teeth-readout"><output data-teeth="frame"></output> teeth</span></h2>
+        <div class="segmented">
+          <label><input type="radio" name="mode" value="internal" data-setting="mode" /> Internal ring</label>
+          <label><input type="radio" name="mode" value="external" data-setting="mode" /> External wheel</label>
+        </div>
+        <div class="sliders" data-piece="frame">
+          <label class="slider"><span>Sides <output></output></span><input type="range" data-field="sides" /></label>
+          <label class="slider"><span>Side length <output></output></span><input type="range" data-field="sideLength" /></label>
+          <label class="slider"><span>Corner roundedness <output></output></span><input type="range" data-field="roundness" /></label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tracer (pen piece) <span class="teeth-readout"><output data-teeth="tracer"></output> teeth</span></h2>
+        <div class="sliders" data-piece="tracer">
+          <label class="slider"><span>Sides <output></output></span><input type="range" data-field="sides" /></label>
+          <label class="slider"><span>Side length <output></output></span><input type="range" data-field="sideLength" /></label>
+          <label class="slider"><span>Corner roundedness <output></output></span><input type="range" data-field="roundness" /></label>
+        </div>
+        <p class="hint">Teeth = piece outline / tooth size, so pieces snap to whole teeth. Side length 0 gives a circle; 2 sides gives an oval bar. Tip: focus a slider and use the arrow keys for single steps.</p>
+      </section>
+
+      <section>
+        <h2>Pens</h2>
+        <ul id="pen-list"></ul>
+        <button type="button" data-action="add-pen">Add pen</button>
+        <p class="hint">In <b>Pens</b> mode: click inside the tracer to add a pen, drag a hole to move it.</p>
+      </section>
+
+      <section>
+        <h2>Draw</h2>
+        <div class="sliders">
+          <label class="slider"><span>Start tooth <output></output></span><input type="range" data-setting="startTooth" /></label>
+          <label class="slider"><span>Tracer offset tooth <output></output></span><input type="range" data-setting="tracerTooth" /></label>
+          <label class="slider"><span>Rotations <output></output></span><input type="range" data-setting="laps" /></label>
+          <label class="slider"><span>Speed (rotations/s) <output></output></span><input type="range" data-setting="speed" /></label>
+        </div>
+        <button type="button" data-action="full-pattern">Full pattern</button>
+        <div class="buttons">
+          <button type="button" class="primary" data-action="animate">Animate</button>
+          <button type="button" data-action="instant">Instant</button>
+          <button type="button" data-action="stop">Stop</button>
+        </div>
+        <label class="row"><input type="checkbox" data-setting="inkOnDrag" /> Ink while dragging</label>
+        <label class="row"><input type="checkbox" data-setting="showPieces" /> Show pieces</label>
+        <p id="info" class="info"></p>
+      </section>
+
+      <section>
+        <h2>Canvas</h2>
+        <div class="buttons">
+          <button type="button" data-action="undo">Undo</button>
+          <button type="button" data-action="clear">Clear</button>
+          <button type="button" data-action="fit">Fit</button>
+          <button type="button" data-action="export" title="Whole drawing on the paper colour">Export PNG</button>
+          <button type="button" data-action="export-transparent" title="Whole drawing, no background">Export transparent</button>
+        </div>
+        <label class="row">Paper <input type="color" data-setting="paper" /></label>
+      </section>
+    </aside>
+
+    <main id="stage">
+      <div class="toolbar segmented">
+        <label><input type="radio" name="tool" value="roll" data-setting="tool" /> Roll</label>
+        <label><input type="radio" name="tool" value="pens" data-setting="tool" /> Pens</label>
+      </div>
+      <canvas id="ink"></canvas>
+      <canvas id="overlay"></canvas>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
